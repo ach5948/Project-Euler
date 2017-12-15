@@ -12,7 +12,7 @@ def isprime(n):
   return all(n % i for i in range(2, sqrt))
 
 def primes(n):
-  results = 2
+  results = 3
   for i in range(7, n, 2):
     s = str(i)
     digits = len(s)

@@ -5,7 +5,7 @@ def product(x):
   return value
 
 def main(n):
-  with open("p008.txt") as fopen:
+  with open("p008.txt", 'r') as fopen:
     a = fopen.readline().strip('\n')
 
   s = list(filter(lambda x: len(x) >= n, a.split('0')))
