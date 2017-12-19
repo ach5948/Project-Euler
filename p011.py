@@ -7,7 +7,7 @@ def readin(filename):
 def check_neighbors(n, m, r, c):
   s = []
   result = 0
-  for i in range(-1, 2):
+  for i in range(2):
     for j in range(-1, 2):
       # ignore center
       if not i and not j:

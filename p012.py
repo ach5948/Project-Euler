@@ -1,3 +1,4 @@
+import time
 import math
 
 def factors(x):
@@ -11,6 +12,7 @@ def factors(x):
   return val
 
 def square(n):
+  start = time.time()
   number = 1
   add = 2
   while(True):
@@ -20,4 +22,22 @@ def square(n):
     number += add
     add += 1
 
+  print(time.time() - start)
   return number
+
+
+def fast(n):
+  start = time.time()
+  cnt = 0
+  i = 1
+  while True:
+    if i % 2:
+      cnt = factors(i) * factors((i + 1) / 2)
+    else:
+      cnt = factors(i / 2) * factors(i + 1)
+    if cnt > n:
+      break
+    i += 1
+    
+  print(time.time() - start)
+  return int(i * (i + 1) / 2), cnt
