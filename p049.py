@@ -8,10 +8,12 @@ def sieve(n):
       a.difference_update(range(2 * i, n, i))
   return a
 
-def digit_sort(n):
-  a = [int((n % 10**(i + 1)) / 10**i) for i in range(len(str(n)))]
-  a.sort(reverse=True)
-  return sum(a[i] * 10**i for i in range(len(a)))
+def signature(n):
+  values = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+  sig = 1
+  for c in str(n):
+    sig *= values[int(c)]
+  return sig
 
 def sort_purge(x):
   if len(x) < 3:
@@ -23,29 +25,32 @@ def main(n):
   start = time.time()
   primes = sieve(10**(n))
   primes.difference_update(range(10**(n - 1)))
+  perms = dict()
+  
+  for i in primes:
+    entry = signature(i)
+    if entry in perms:
+      perms[entry].append(i)
+    else:
+      perms[entry] = [i]
 
-  finals = []
+  values = []
+  for i in perms.values():
+    if len(i) > 2:
+      values.append(sorted(i))
 
-  for i in range(2, int(.45 * 10**n), 2):
-    for j in primes:
-      check = digit_sort(j)
-      t1 = j + i
+  finals = set()
+  for i in values:
+    for j in i:
+      for k in i:
+        if j == k:
+          continue
+        
+        diff = k - j
+        if j + 2 * diff in i:
+          finals.add(tuple(sorted([j, k, j + 2 * diff])))
 
-      if t1 not in primes:
-        continue
-      if check != digit_sort(t1):
-        continue
-
-      t2 = j + 2 * i
-
-      if t2 not in primes:
-        continue
-
-      if check != digit_sort(t2):
-        continue
-      
-      finals.append((j, t1, t2))
-
+  finals = sorted(finals)
   print(time.time() - start)
   
   return finals
