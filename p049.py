@@ -15,12 +15,6 @@ def signature(n):
     sig *= values[int(c)]
   return sig
 
-def sort_purge(x):
-  if len(x) < 3:
-    return False
-  x.sort()
-  return True
-
 def main(n):
   start = time.time()
   primes = sieve(10**(n))
